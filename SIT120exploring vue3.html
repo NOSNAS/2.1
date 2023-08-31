@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+        }
+      }
+    </script>
+
+    <style>
+      .done {
+        text-decoration: line-through;
+      }
+    </style>
+    
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{message}}</h1>
+      <h2>{{sub_message}}</h2>
+      <h3>using v-for</h3>
+      <ul>
+        <li v-for="item in list">{{item}}</li>
+      </ul>
+      
+      <input type="text" v-model="item" />
+      {{item}}
+
+      <h4>check true or false using v-if & v-else</h4>
+      <h1 v-if="check">The concept is true</h1>
+      <h1 v-else>False</h1>
+      
+      <h5>using v-model</h5>
+      <p>Message is: {{ third_message }}</p>
+      <input v-model="third_message" placeholder="edit me" />
+
+      <h6>using v-show</h6>
+      <p v-show="showWithVShow">This paragraph is shown using v-show.</p>
+
+      <ul>
+        <li v-for="item in filterItems" :key="item.id">
+          <!-- <li v-for="item in list" :key="item.id"> -->
+          <input type="checkbox" v-model="item.done" />
+          <span :class="{done: item.done}"> {{item}} </span>
+        </li>
+      </ul>
+
+    </div>
+
+    <script type="module">
+      import { createApp } from "vue";
+
+      createApp({
+        data() {
+          return {
+            message: "SIT120 2.1C",
+            sub_message: "VUE3 concepts",
+            third_message: "edit me",
+            count: 0,
+            list: [1, 2, 3, 4],
+            item: "",
+            check: true,
+            showWithVShow: true,
+          };
+        },
+        methods: {
+          increament() {
+            this.count++;
+          },
+        },
+        computed: {
+          filterItems() {
+            return this.list.filter(item => !item.done);
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
